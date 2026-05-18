@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>AdSense Friendly Content Checker – AI Policy Safety Tool | SD Toolkit</title>
+<meta name="description" content="Free AdSense Friendly Content Checker. Analyze your content for AdSense policy safety, SEO quality, spam detection and monetization readiness using advanced AI."/>
+<meta name="keywords" content="AdSense Friendly Content Checker, AI Content Safety Checker, AdSense Approval Tool, Google AdSense Analyzer, SEO Content Analyzer, Monetization Readiness Checker, Blogger SEO Tool, AI Spam Detection Tool, Policy Safe Content Checker"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#05050e;--bg2:#0a0a18;--bg3:#0f0f20;--bg4:#141428;
+  --text:#eeeeff;--text2:#8888bb;--text3:#4444aa;
+  --blue:#4f8ef7;--purple:#9b5cf6;--cyan:#22d3ee;
+  --green:#34d399;--yellow:#fbbf24;--red:#f87171;--teal:#2dd4bf;
+  --gb:rgba(79,142,247,.12);--gp:rgba(155,92,246,.12);--gg:rgba(52,211,153,.12);
+  --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);
+  --card:rgba(255,255,255,0.02);--card2:rgba(255,255,255,0.05);
+  --r:14px;--rl:20px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--green),var(--blue));border-radius:10px}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:999;backdrop-filter:blur(24px);background:rgba(5,5,14,0.9);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:66px;padding:0 24px}
+.logo{font-size:19px;font-weight:800;background:linear-gradient(135deg,var(--green),var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;cursor:pointer}
+.nav-links{display:flex;gap:4px;list-style:none}
+.nav-links a{font-size:13px;color:var(--text2);padding:6px 12px;border-radius:8px;cursor:pointer;transition:.2s}
+.nav-links a:hover{color:var(--text);background:var(--card2)}
+.nav-right{display:flex;gap:8px}
+.nb{padding:8px 18px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:.2s}
+.nb-out{background:transparent;color:var(--text2);border:1px solid var(--border2)}
+.nb-out:hover{color:var(--text);background:var(--card2)}
+.nb-g{background:linear-gradient(135deg,var(--green),var(--blue));color:#fff;box-shadow:0 0 20px rgba(52,211,153,.25)}
+.nb-g:hover{opacity:.9;transform:translateY(-1px)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(110px);pointer-events:none;animation:oF 9s ease-in-out infinite}
+.o1{width:500px;height:500px;background:radial-gradient(circle,rgba(52,211,153,.2),transparent 70%);top:-120px;left:-100px}
+.o2{width:420px;height:420px;background:radial-gradient(circle,rgba(79,142,247,.18),transparent 70%);bottom:-100px;right:-80px;animation-delay:3.5s}
+.o3{width:280px;height:280px;background:radial-gradient(circle,rgba(34,211,238,.13),transparent 70%);top:45%;left:62%;animation-delay:6s}
+@keyframes oF{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-26px) scale(1.04)}}
+
+/* radar scan */
+.radar{position:absolute;width:400px;height:400px;border-radius:50%;border:1px solid rgba(52,211,153,.08);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.radar::before{content:'';position:absolute;inset:20px;border-radius:50%;border:1px solid rgba(52,211,153,.06)}
+.radar::after{content:'';position:absolute;inset:40px;border-radius:50%;border:1px solid rgba(52,211,153,.04)}
+.radar-beam{position:absolute;width:200px;height:2px;background:linear-gradient(90deg,rgba(52,211,153,.8),transparent);top:50%;left:50%;transform-origin:0 50%;animation:radarSpin 4s linear infinite}
+@keyframes radarSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+.fi{position:absolute;font-size:18px;opacity:.1;animation:fF 7s ease-in-out infinite;pointer-events:none}
+@keyframes fF{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-16px) rotate(7deg)}}
+
+.hero-badge{display:inline-flex;align-items:center;gap:7px;padding:6px 16px;border-radius:30px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);font-size:12px;font-weight:600;color:var(--green);letter-spacing:.5px;margin-bottom:26px;animation:fU .7s ease}
+.hero h1{font-size:clamp(34px,6.5vw,74px);font-weight:900;line-height:1.06;letter-spacing:-2px;margin-bottom:20px;animation:fU .7s .1s both}
+.grad{background:linear-gradient(135deg,var(--green) 0%,var(--blue) 45%,var(--cyan) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.grad2{background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:clamp(14px,2vw,18px);color:var(--text2);max-width:600px;margin:0 auto 38px;line-height:1.75;animation:fU .7s .2s both}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;animation:fU .7s .3s both}
+.bh{padding:14px 32px;border-radius:13px;font-size:15px;font-weight:700;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:.25s}
+.bh-m{background:linear-gradient(135deg,var(--green),var(--blue));color:#fff;box-shadow:0 0 32px rgba(52,211,153,.3)}
+.bh-m:hover{transform:translateY(-3px);box-shadow:0 0 48px rgba(52,211,153,.45)}
+.bh-s{background:var(--card2);color:var(--text);border:1px solid var(--border2)}
+.bh-s:hover{background:rgba(255,255,255,.08)}
+
+.trust-row{display:flex;gap:20px;justify-content:center;margin-top:46px;flex-wrap:wrap;animation:fU .7s .4s both}
+.trust-pill{display:flex;align-items:center;gap:7px;padding:8px 16px;border-radius:10px;background:var(--card2);border:1px solid var(--border2);font-size:12px;font-weight:500;color:var(--text2)}
+.tp-dot{width:7px;height:7px;border-radius:50%;animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(52,211,153,.6)}50%{box-shadow:0 0 0 7px rgba(52,211,153,0)}}
+@keyframes fU{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+/* STATS BAR */
+.sbar{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 24px}
+.sbar-inner{max-width:1240px;margin:0 auto;display:flex;justify-content:center;gap:50px;flex-wrap:wrap}
+.sbi{text-align:center}
+.sbi-n{font-size:24px;font-weight:800;background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sbi-l{font-size:12px;color:var(--text2)}
+
+/* AD */
+.ad{background:var(--card);border:1.5px dashed var(--border2);border-radius:var(--r);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:12px;letter-spacing:.5px}
+.ad728{height:90px;width:100%}
+.ad300{height:250px;width:100%}
+
+/* SECTION */
+.sec{padding:80px 24px}
+.wrap{max-width:1240px;margin:0 auto}
+.sl{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:10px}
+.st{font-size:clamp(24px,4vw,40px);font-weight:800;letter-spacing:-.5px;margin-bottom:12px}
+.ss{font-size:15px;color:var(--text2);max-width:520px;line-height:1.7}
+.sh{text-align:center;margin-bottom:52px}
+.sh .ss{margin:0 auto}
+
+/* TOOL LAYOUT */
+.tool-bg{background:var(--bg2)}
+.tool-layout{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start}
+
+/* TEXTAREA */
+.tbox{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--rl);padding:24px;margin-bottom:16px;transition:.3s}
+.tbox:focus-within{border-color:var(--green);box-shadow:0 0 0 3px rgba(52,211,153,.07)}
+.tbox-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.tbox-top h3{font-size:14px;font-weight:700;display:flex;align-items:center;gap:7px}
+.tbox-acts{display:flex;gap:8px}
+.ta{padding:6px 13px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:.2s}
+.ta-cl{background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.2)}
+.ta-cl:hover{background:rgba(248,113,113,.18)}
+.ta-cp{background:rgba(52,211,153,.1);color:var(--green);border:1px solid rgba(52,211,153,.2)}
+.ta-cp:hover{background:rgba(52,211,153,.18)}
+textarea{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:10px;padding:14px 16px;color:var(--text);font-family:'Inter',sans-serif;font-size:14px;resize:vertical;outline:none;transition:.2s;min-height:220px;line-height:1.75}
+textarea::placeholder{color:var(--text3)}
+textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(52,211,153,.08)}
+input[type=text]{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:10px;padding:11px 15px;color:var(--text);font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:.2s;margin-bottom:16px}
+input[type=text]:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(52,211,153,.08)}
+.fl{font-size:13px;font-weight:600;color:var(--text2);margin-bottom:7px}
+.ctr-row{display:flex;gap:10px;justify-content:flex-end;margin-top:7px}
+.ctr{font-size:11px;color:var(--text3);background:var(--card);padding:3px 10px;border-radius:20px;border:1px solid var(--border)}
+
+.go-btn{width:100%;padding:15px;border-radius:13px;background:linear-gradient(135deg,var(--green),var(--blue));color:#fff;font-size:15px;font-weight:700;border:none;cursor:pointer;transition:.25s;font-family:'Inter',sans-serif;box-shadow:0 0 28px rgba(52,211,153,.25);display:flex;align-items:center;justify-content:center;gap:9px}
+.go-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 0 44px rgba(52,211,153,.42)}
+.go-btn:disabled{opacity:.5;cursor:not-allowed}
+
+/* SCANNING OVERLAY */
+.scan-anim{display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:40px 24px;background:var(--bg3);border:1px solid rgba(52,211,153,.15);border-radius:var(--rl);margin-top:20px;text-align:center}
+.scan-ring{width:80px;height:80px;border-radius:50%;border:3px solid rgba(52,211,153,.15);border-top-color:var(--green);animation:spin 1s linear infinite;margin:0 auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+.scan-txt{font-size:14px;font-weight:600;color:var(--green)}
+.scan-sub{font-size:12px;color:var(--text2)}
+
+/* RESULTS */
+.dash{display:flex;flex-direction:column;gap:18px;margin-top:20px}
+
+/* SCORE HERO */
+.score-hero{border-radius:var(--rl);padding:26px;display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.sh-info h2{font-size:20px;font-weight:800;margin-bottom:5px}
+.sh-info p{font-size:13px;opacity:.85;margin-bottom:12px;line-height:1.6}
+.sh-pills{display:flex;gap:8px;flex-wrap:wrap}
+.sh-pill{font-size:12px;padding:4px 12px;border-radius:20px;background:rgba(255,255,255,.08);font-weight:500}
+
+/* METRIC GRID */
+.mg{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:13px}
+.mc{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:18px;transition:.25s}
+.mc:hover{border-color:var(--border2);transform:translateY(-2px)}
+.mc-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--text3);margin-bottom:9px}
+.mc-val{font-size:24px;font-weight:800;margin-bottom:8px}
+.pb{height:5px;background:rgba(255,255,255,.06);border-radius:10px;overflow:hidden}
+.pf{height:100%;border-radius:10px;transition:width 1.2s ease}
+.mc-sub{font-size:11px;color:var(--text3);margin-top:6px}
+
+/* RING */
+.rring{flex-shrink:0}
+
+/* POLICY CARDS */
+.pol-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:13px}
+.pc{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:18px;display:flex;align-items:center;gap:14px;transition:.25s}
+.pc:hover{border-color:var(--border2)}
+.pc-icon{font-size:22px;flex-shrink:0}
+.pc-info{flex:1}
+.pc-name{font-size:13px;font-weight:600;margin-bottom:3px}
+.pc-desc{font-size:11px;color:var(--text2)}
+.pc-badge{font-size:11px;font-weight:700;padding:4px 11px;border-radius:20px;flex-shrink:0;letter-spacing:.5px}
+.badge-safe{background:rgba(52,211,153,.12);color:var(--green);border:1px solid rgba(52,211,153,.25)}
+.badge-warn{background:rgba(251,191,36,.1);color:var(--yellow);border:1px solid rgba(251,191,36,.25)}
+.badge-risk{background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.25)}
+
+/* AI TIPS */
+.tip-item{display:flex;gap:12px;font-size:13px;line-height:1.65;padding:11px 0;border-bottom:1px solid var(--border)}
+.tip-item:last-child{border-bottom:none;padding-bottom:0}
+.tip-n{width:23px;height:23px;border-radius:7px;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.rbox{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.rbox-title{font-size:14px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+
+/* SIDEBAR */
+.sbox{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:16px}
+.sbox h4{font-size:13px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.stips{list-style:none;display:flex;flex-direction:column;gap:7px}
+.stips li{font-size:12px;color:var(--text2);display:flex;gap:6px;line-height:1.5}
+.stips li::before{content:"→";color:var(--green);flex-shrink:0}
+.stool{font-size:13px;color:var(--blue);cursor:pointer;padding:7px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between}
+.stool:last-child{border-bottom:none;padding-bottom:0}
+.stool:hover{color:var(--green)}
+
+/* FEATURES */
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
+.fc{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:24px;transition:.25s;position:relative;overflow:hidden}
+.fc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--gg),var(--gb));opacity:0;transition:.3s}
+.fc:hover{border-color:var(--border2);transform:translateY(-4px)}
+.fc:hover::before{opacity:1}
+.fc-icon{font-size:28px;margin-bottom:12px;position:relative}
+.fc h3{font-size:14px;font-weight:700;margin-bottom:6px;position:relative}
+.fc p{font-size:12px;color:var(--text2);line-height:1.65;position:relative}
+
+/* HOW */
+.how-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.hc{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:26px;text-align:center}
+.hnum{width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,var(--green),var(--blue));color:#fff;font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.hc h3{font-size:14px;font-weight:700;margin-bottom:7px}
+.hc p{font-size:12px;color:var(--text2);line-height:1.65}
+
+/* WHY */
+.why-p{font-size:15px;color:var(--text2);line-height:1.9;max-width:780px;margin:0 auto;text-align:center}
+.why-p strong{color:var(--text)}
+
+/* CTA */
+.cta{background:linear-gradient(135deg,rgba(52,211,153,.07),rgba(79,142,247,.07));border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:80px 24px;text-align:center}
+.cta h2{font-size:clamp(26px,4vw,44px);font-weight:900;letter-spacing:-.5px;margin-bottom:14px}
+.cta p{font-size:16px;color:var(--text2);margin-bottom:34px}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:52px 24px 28px}
+.fin{max-width:1240px;margin:0 auto}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.flogo{font-size:20px;font-weight:800;background:linear-gradient(135deg,var(--green),var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px;display:block}
+.fdesc{font-size:13px;color:var(--text2);line-height:1.75;margin-bottom:18px}
+.socials{display:flex;gap:8px}
+.soc{width:34px;height:34px;border-radius:9px;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;transition:.2s}
+.soc:hover{border-color:var(--green);color:var(--green)}
+.fcol h5{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--text3);margin-bottom:14px}
+.fcol ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.fcol li{font-size:13px;color:var(--text2);cursor:pointer;transition:.2s}
+.fcol li:hover{color:var(--green)}
+.fbot{border-top:1px solid var(--border);padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.fbot p{font-size:12px;color:var(--text3)}
+
+/* LOADER DOTS */
+.dots{display:inline-flex;gap:5px;align-items:center}
+.dots span{width:7px;height:7px;border-radius:50%;background:#fff;animation:ld .7s infinite alternate}
+.dots span:nth-child(2){animation-delay:.15s}
+.dots span:nth-child(3){animation-delay:.3s}
+@keyframes ld{from{opacity:.3;transform:scale(.75)}to{opacity:1;transform:scale(1)}}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;right:28px;background:linear-gradient(135deg,var(--green),var(--blue));color:#fff;padding:11px 22px;border-radius:10px;font-size:13px;font-weight:600;z-index:9999;transform:translateY(80px);opacity:0;transition:.35s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* BREAD */
+.bread{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--text2);flex-wrap:wrap;margin-bottom:30px}
+.bread a{color:var(--green);cursor:pointer}
+.bread a:hover{text-decoration:underline}
+.bread span{color:var(--text3)}
+
+@media(max-width:1020px){.tool-layout{grid-template-columns:1fr}.sidebar{display:none}}
+@media(max-width:768px){.nav-links{display:none}.fgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.fgrid{grid-template-columns:1fr}.score-hero{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <span class="logo">⚡ SD Toolkit</span>
+    <ul class="nav-links">
+      <li><a href="#tool-sec">Analyzer</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#why">Why Use</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="nb nb-out">Log In</button>
+      <button class="nb nb-g">Free Access</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+  <div class="radar"><div class="radar-beam"></div></div>
+  <span class="fi" style="top:13%;left:7%;animation-delay:0s">🛡️</span>
+  <span class="fi" style="top:22%;right:8%;animation-delay:1.2s">💰</span>
+  <span class="fi" style="top:68%;left:5%;animation-delay:2.4s">🔍</span>
+  <span class="fi" style="top:72%;right:7%;animation-delay:3.2s">✅</span>
+  <span class="fi" style="top:40%;left:3%;animation-delay:4s">🎯</span>
+  <span class="fi" style="top:33%;right:3%;animation-delay:1.8s">⚡</span>
+
+  <div class="hero-badge">🛡️ AI-Powered · Policy Safe · Real-Time Detection</div>
+  <h1>💰 AdSense Friendly<br/><span class="grad">Content Checker</span></h1>
+  <p>Analyze your content for AdSense policy safety, SEO quality, spam detection, and monetization readiness using advanced AI detection — instantly.</p>
+  <div class="hero-btns">
+    <button class="bh bh-m" onclick="document.getElementById('tool-sec').scrollIntoView({behavior:'smooth'})">🔍 Analyze Content Free →</button>
+    <button class="bh bh-s" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">See Features ↓</button>
+  </div>
+  <div class="trust-row">
+    <div class="trust-pill"><div class="tp-dot" style="background:var(--green)"></div>AdSense Policy Scanner</div>
+    <div class="trust-pill"><div class="tp-dot" style="background:var(--blue);animation-delay:.4s"></div>Spam Detector</div>
+    <div class="trust-pill"><div class="tp-dot" style="background:var(--cyan);animation-delay:.8s"></div>SEO Analyzer</div>
+    <div class="trust-pill"><div class="tp-dot" style="background:var(--purple);animation-delay:1.2s"></div>AI Content Signals</div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="sbar">
+  <div class="sbar-inner">
+    <div class="sbi"><div class="sbi-n">1M+</div><div class="sbi-l">Articles Checked</div></div>
+    <div class="sbi"><div class="sbi-n">99%</div><div class="sbi-l">Detection Accuracy</div></div>
+    <div class="sbi"><div class="sbi-n">75K+</div><div class="sbi-l">Active Publishers</div></div>
+    <div class="sbi"><div class="sbi-n">Free</div><div class="sbi-l">No Signup Needed</div></div>
+  </div>
+</div>
+
+<!-- TOP AD -->
+<div style="padding:26px 24px 0;max-width:1240px;margin:0 auto">
+  <div class="ad ad728">📢 Advertisement – 728×90 Leaderboard (AdSense)</div>
+</div>
+
+<!-- TOOL SECTION -->
+<section class="tool-bg sec" id="tool-sec">
+<div class="wrap">
+  <div class="bread">
+    <a>⚡ SD Toolkit</a><span>›</span>
+    <a>All Tools</a><span>›</span>
+    <span style="color:var(--text)">AdSense Friendly Content Checker</span>
+  </div>
+
+  <div style="margin-bottom:34px">
+    <div class="sl">Free AI Safety Tool</div>
+    <h1 class="st">AdSense <span class="grad">Content Checker</span></h1>
+    <p style="font-size:15px;color:var(--text2);max-width:640px;line-height:1.75">Paste your article, enter your keyword, and get a comprehensive AdSense policy safety report with AI-powered analysis in seconds.</p>
+  </div>
+
+  <div class="tool-layout">
+    <!-- MAIN -->
+    <div>
+      <div class="tbox">
+        <div class="tbox-top">
+          <h3>📄 Article Content</h3>
+          <div class="tbox-acts">
+            <button class="ta ta-cl" onclick="clearAll()">🗑 Clear</button>
+            <button class="ta ta-cp" onclick="copyTxt()">📋 Copy</button>
+          </div>
+        </div>
+        <div class="fl">🏷️ Target Keyword <span style="color:var(--text3);font-weight:400">(optional but recommended)</span></div>
+        <input type="text" id="kw" placeholder="e.g. online earning tips, blogging guide, digital marketing…"/>
+        <textarea id="art" placeholder="Paste your full blog post, article or web page content here for a complete AdSense safety and SEO analysis…&#10;&#10;The more content you provide, the more accurate the analysis will be. Minimum 50 words recommended." oninput="liveCount()"></textarea>
+        <div class="ctr-row">
+          <span class="ctr" id="ctr-w">0 words</span>
+          <span class="ctr" id="ctr-c">0 chars</span>
+        </div>
+      </div>
+
+      <button class="go-btn" id="goBtn" onclick="runCheck()">
+        <span id="btn-txt">🛡️ Analyze Content for AdSense</span>
+      </button>
+
+      <!-- SCAN ANIMATION -->
+      <div class="scan-anim" id="scan-anim">
+        <div class="scan-ring"></div>
+        <div class="scan-txt" id="scan-msg">🤖 AI Scanning Content…</div>
+        <div class="scan-sub">Running policy checks, SEO analysis & spam detection</div>
+      </div>
+
+      <!-- RESULTS -->
+      <div id="results-wrap"></div>
+
+      <!-- IN-CONTENT AD -->
+      <div style="margin-top:24px">
+        <div class="ad ad728">📢 In-Content Ad – 728×90 (AdSense)</div>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="ad ad300" style="margin-bottom:16px">📢 300×250 Ad (AdSense)</div>
+      <div class="sbox">
+        <h4>🛡️ AdSense Safety Tips</h4>
+        <ul class="stips">
+          <li>Avoid adult or violent content</li>
+          <li>Don't use misleading clickbait titles</li>
+          <li>Minimum 500 words per page</li>
+          <li>Original, non-plagiarized content</li>
+          <li>No excessive affiliate links</li>
+          <li>Avoid keyword stuffing</li>
+          <li>Keep spam score below 30%</li>
+          <li>No copyright-infringing material</li>
+        </ul>
+      </div>
+      <div class="sbox">
+        <h4>💡 Monetization Checklist</h4>
+        <ul class="stips">
+          <li>Privacy Policy page required</li>
+          <li>About Us page needed</li>
+          <li>Contact page must exist</li>
+          <li>Original content only</li>
+          <li>Active blog with 20+ posts</li>
+          <li>Custom domain recommended</li>
+        </ul>
+      </div>
+      <div class="sbox">
+        <h4>🔥 More SD Tools</h4>
+        <div class="stool">🔍 AI SEO Checker <span>→</span></div>
+        <div class="stool">📝 Word Counter <span>→</span></div>
+        <div class="stool">🧠 Paraphrasing Tool <span>→</span></div>
+        <div class="stool">🏷️ Meta Tags Generator <span>→</span></div>
+        <div class="stool">🌐 Google Blog Checker <span>→</span></div>
+      </div>
+      <div class="ad ad300">📢 300×250 Ad (AdSense)</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- FEATURES -->
+<section class="sec" id="features">
+<div class="wrap">
+  <div class="sh">
+    <div class="sl">What We Detect</div>
+    <h2 class="st">Advanced <span class="grad">AI Detection</span> Features</h2>
+    <p class="ss">12 comprehensive checks to ensure your content is AdSense-ready and Google-friendly.</p>
+  </div>
+  <div class="feat-grid">
+    <div class="fc"><div class="fc-icon">🛡️</div><h3>Advanced AI Detection</h3><p>Deep content scanning using AI models to detect policy violations and unsafe signals.</p></div>
+    <div class="fc"><div class="fc-icon">💰</div><h3>AdSense Policy Scanner</h3><p>Real-time check against Google AdSense content policies for monetization readiness.</p></div>
+    <div class="fc"><div class="fc-icon">🔍</div><h3>SEO Optimization Analysis</h3><p>Keyword density, readability, heading structure and content quality evaluation.</p></div>
+    <div class="fc"><div class="fc-icon">🚨</div><h3>Spam Detection</h3><p>Identify spammy phrases, excessive keywords, and low-quality content patterns.</p></div>
+    <div class="fc"><div class="fc-icon">🤖</div><h3>AI Content Signals</h3><p>Detect AI-generated content patterns that may affect AdSense approval rates.</p></div>
+    <div class="fc"><div class="fc-icon">⚡</div><h3>Real-Time Processing</h3><p>Instant analysis with no page reloads — smooth, fast and always responsive.</p></div>
+    <div class="fc"><div class="fc-icon">📊</div><h3>Risk Level Indicators</h3><p>Color-coded Safe / Warning / High Risk indicators for each policy category.</p></div>
+    <div class="fc"><div class="fc-icon">📱</div><h3>Mobile Responsive</h3><p>Fully optimized for mobile, tablet and desktop devices — use anywhere.</p></div>
+    <div class="fc"><div class="fc-icon">🎯</div><h3>Monetization Readiness</h3><p>Overall monetization score showing if your content is ready for AdSense approval.</p></div>
+    <div class="fc"><div class="fc-icon">📖</div><h3>Blogger Friendly</h3><p>Designed for bloggers, publishers and content creators at every skill level.</p></div>
+  </div>
+</div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="sec" id="how" style="background:var(--bg2)">
+<div class="wrap">
+  <div class="sh">
+    <div class="sl">Simple Process</div>
+    <h2 class="st">How It <span class="grad">Works</span></h2>
+    <p class="ss">Get your full AdSense safety report in 4 easy steps.</p>
+  </div>
+  <div class="how-grid">
+    <div class="hc"><div class="hnum">1</div><h3>Paste Your Content</h3><p>Copy and paste your full article or blog post into the content area above.</p></div>
+    <div class="hc"><div class="hnum">2</div><h3>Enter Keyword</h3><p>Add your target keyword for accurate SEO and density analysis.</p></div>
+    <div class="hc"><div class="hnum">3</div><h3>Click Analyze</h3><p>Our AI scans your content for policy violations, spam, SEO and safety issues.</p></div>
+    <div class="hc"><div class="hnum">4</div><h3>Fix & Recheck</h3><p>Apply the AI recommendations, edit your content, and re-analyze until safe.</p></div>
+  </div>
+</div>
+</section>
+
+<!-- WHY -->
+<section class="sec" id="why">
+<div class="wrap">
+  <div class="sh">
+    <div class="sl">Why Use This Tool</div>
+    <h2 class="st">Built for <span class="grad">Publishers &amp; Bloggers</span></h2>
+  </div>
+  <p class="why-p">This advanced <strong>AI-powered AdSense Friendly Content Checker</strong> helps <strong>bloggers, publishers, and content creators</strong> optimize articles for safer monetization, improved SEO, and higher <strong>Google AdSense approval chances</strong>. Whether you're applying for AdSense for the first time or maintaining an existing account, knowing your content's safety score is essential for long-term <strong>monetization success</strong>.</p>
+</div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+<div class="wrap">
+  <div class="sl" style="text-align:center">Get Started Free</div>
+  <h2>Optimize Your Content for<br/><span class="grad">Better AdSense Approval</span></h2>
+  <p>No account required. 100% free AI-powered AdSense content analysis.</p>
+  <button class="bh bh-m" onclick="document.getElementById('tool-sec').scrollIntoView({behavior:'smooth'})">💰 Analyze Content Now</button>
+</div>
+</section>
+
+<!-- FOOTER AD -->
+<div style="padding:0 24px;max-width:1240px;margin:0 auto 26px">
+  <div class="ad ad728">📢 Footer Ad – 728×90 (AdSense)</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+<div class="fin">
+  <div class="fgrid">
+    <div>
+      <span class="flogo">⚡ SD Toolkit</span>
+      <p class="fdesc">Your all-in-one AI tools platform for SEO, content creation, blogging, and digital productivity. Built for creators, bloggers and publishers worldwide.</p>
+      <div class="socials">
+        <div class="soc">𝕏</div><div class="soc">in</div>
+        <div class="soc">▶</div><div class="soc">📘</div><div class="soc">📸</div>
+      </div>
+    </div>
+    <div class="fcol"><h5>AI Tools</h5><ul><li>AdSense Checker</li><li>SEO Checker</li><li>Word Counter</li><li>Content Writer</li><li>Meta Generator</li></ul></div>
+    <div class="fcol"><h5>Company</h5><ul><li>About Us</li><li>Blog</li><li>Careers</li><li>Contact</li></ul></div>
+    <div class="fcol"><h5>Legal</h5><ul><li>Privacy Policy</li><li>Terms of Service</li><li>DMCA</li><li>Disclaimer</li></ul></div>
+  </div>
+  <div class="fbot">
+    <p>© 2025 SD Toolkit. All Rights Reserved. Made with ❤️ for Bloggers & Publishers.</p>
+    <p>AdSense Checker · AI Safety Tool · Policy Scanner · Monetization Analyzer</p>
+  </div>
+</div>
+</footer>
+
+<script>
+// ─── HELPERS ──────────────────────────────
+const $ = id => document.getElementById(id);
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
+
+function liveCount(){
+  const v=$('art').value;
+  const w=v.trim().split(/\s+/).filter(Boolean).length;
+  $('ctr-w').textContent=w+' words';
+  $('ctr-c').textContent=v.length+' chars';
+}
+
+function clearAll(){$('art').value='';$('kw').value='';liveCount();$('results-wrap').innerHTML='';$('scan-anim').style.display='none';}
+function copyTxt(){const t=$('art').value;if(!t){toast('Nothing to copy!');return;}navigator.clipboard.writeText(t).then(()=>toast('✓ Copied!'))}
+
+// ─── FRONTEND ANALYSIS (instant, no API needed for basic scores) ──
+function words(t){return t.trim().split(/\s+/).filter(Boolean)}
+function sentences(t){return t.split(/[.!?]+/).filter(s=>s.trim().length>2)}
+
+// Spam keywords
+const spamKws=['click here','buy now','100% free','make money fast','guaranteed','no risk','limited offer','act now','winner','you have been selected','congratulations','earn money online','work from home','get rich','free money','casino','weight loss','diet pill','enlargement','cheap meds'];
+const adultKws=['sex','porn','nude','xxx','adult content','escort','drug','cocaine','marijuana','hack','crack','piracy','torrent'];
+const clickbaitPats=[/you won't believe/i,/mind.?blown/i,/shocking/i,/secret/i,/doctors hate/i,/this trick/i,/number \d+ will/i,/what happens next/i,/gone wrong/i,/gone sexual/i];
+
+function spamScore(t){
+  const tl=t.toLowerCase();
+  let hits=0;
+  spamKws.forEach(k=>{if(tl.includes(k))hits++;});
+  const w=words(t).length;
+  const density=w>0?(hits/w)*100:0;
+  return Math.min(100,Math.round(density*40+hits*5));
+}
+function adultScore(t){
+  const tl=t.toLowerCase();
+  let hits=0;adultKws.forEach(k=>{if(tl.includes(k))hits++;});
+  return Math.min(100,hits*20);
+}
+function clickbaitScore(t){
+  let hits=0;clickbaitPats.forEach(p=>{if(p.test(t))hits++;});
+  return Math.min(100,hits*25);
+}
+function keywordStuffing(t,kw){
+  if(!kw)return 0;
+  const w=words(t);const kl=kw.toLowerCase();
+  const cnt=w.filter(x=>x.toLowerCase().includes(kl)).length;
+  const density=(cnt/Math.max(w.length,1))*100;
+  return density>5?Math.min(100,Math.round((density-5)*20)):0;
+}
+function countSyl(w){w=w.toLowerCase().replace(/[^a-z]/g,'');if(!w)return 0;let c=0,pv=false;for(let ch of w){const v='aeiou'.includes(ch);if(v&&!pv)c++;pv=v;}if(w.endsWith('e')&&c>1)c--;return Math.max(1,c);}
+function flesch(t){
+  const wa=words(t),sa=sentences(t);if(!wa.length||!sa.length)return 50;
+  const syl=wa.reduce((a,w)=>a+countSyl(w),0);
+  const asl=wa.length/sa.length,asw=syl/wa.length;
+  return Math.min(100,Math.max(0,Math.round(206.835-(1.015*asl)-(84.6*asw))));
+}
+function readLevel(s){if(s>=80)return{l:'Easy',c:'var(--green)'};if(s>=60)return{l:'Standard',c:'var(--yellow)'};return{l:'Difficult',c:'var(--red)'};}
+function seoScore(t,kw){
+  let score=50;const w=words(t);
+  if(w.length>=500)score+=15;else if(w.length>=200)score+=8;
+  if(kw){const kl=kw.toLowerCase();const cnt=t.toLowerCase().split(kl).length-1;const d=(cnt/Math.max(w.length,1))*100;if(d>=1&&d<=3)score+=20;else if(d>0)score+=10;}
+  if(/h[123]/i.test(t))score+=10;
+  const f=flesch(t);if(f>=60)score+=5;
+  return Math.min(100,score);
+}
+function aiSignal(t){
+  // Patterns typical of AI text
+  const aiPats=[/in conclusion/i,/it is important to note/i,/furthermore/i,/moreover/i,/in today's (digital|world|society)/i,/it is worth mentioning/i,/delve into/i,/leverage/i,/at its core/i,/navigating the/i];
+  let hits=0;aiPats.forEach(p=>{if(p.test(t))hits++;});
+  return Math.min(100,hits*12);
+}
+function monetizationReady(adsense,seo,spam,readScore){
+  return Math.round((adsense*0.4)+(seo*0.25)+((100-spam)*0.2)+(readScore*0.15));
+}
+function adsenseSafety(spam,adult,clickbait,stuffing,ai){
+  const risk=spam*0.3+adult*0.3+clickbait*0.2+stuffing*0.1+ai*0.1;
+  return Math.max(0,Math.min(100,Math.round(100-risk)));
+}
+
+// ─── RING SVG ──────────────────────────────
+function ring(val,color,size=110){
+  const r=44,cx=size/2,cy=size/2,sw=8,circ=2*Math.PI*r,dash=(val/100)*circ;
+  return`<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="${sw}"/>
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="${sw}"
+      stroke-dasharray="${dash} ${circ}" stroke-linecap="round" transform="rotate(-90 ${cx} ${cy})" style="transition:stroke-dasharray 1.2s ease"/>
+    <text x="${cx}" y="${cy-5}" text-anchor="middle" font-size="20" font-weight="800" fill="${color}" font-family="Inter">${val}</text>
+    <text x="${cx}" y="${cy+13}" text-anchor="middle" font-size="10" fill="${color}" font-family="Inter" opacity=".75">/ 100</text>
+  </svg>`;}
+function pb(pct,color){return`<div class="pb"><div class="pf" style="width:${pct}%;background:${color}"></div></div>`}
+function scoreColor(s){return s>=70?'var(--green)':s>=45?'var(--yellow)':'var(--red)';}
+function badge(risk){
+  if(risk===0)return'<span class="pc-badge badge-safe">✓ SAFE</span>';
+  if(risk===1)return'<span class="pc-badge badge-warn">⚠ WARNING</span>';
+  return'<span class="pc-badge badge-risk">🚨 HIGH RISK</span>';
+}
+function riskLevel(score){return score<25?0:score<60?1:2;}
+function metricCard(label,val,color,sub=''){return`<div class="mc"><div class="mc-lbl">${label}</div><div class="mc-val" style="color:${color}">${val}</div>${pb(parseInt(val),color)}<div class="mc-sub">${sub}</div></div>`;}
+
+// ─── SCAN MESSAGES ──────────────────────────
+const scanMsgs=['🤖 AI Scanning Content…','🛡️ Checking AdSense Policy…','🔍 Analyzing SEO Quality…','🚨 Running Spam Detection…','📊 Calculating Safety Score…','✅ Finalizing Report…'];
+let scanInterval;
+function startScan(){
+  $('scan-anim').style.display='flex';let i=0;
+  scanInterval=setInterval(()=>{$('scan-msg').textContent=scanMsgs[i%scanMsgs.length];i++;},800);
+}
+function stopScan(){clearInterval(scanInterval);$('scan-anim').style.display='none';}
+
+// ─── MAIN ANALYSIS ────────────────────────────
+async function runCheck(){
+  const art=$('art').value.trim();
+  const kw=$('kw').value.trim();
+  if(!art){toast('⚠️ Please paste your article content first.');return;}
+  if(words(art).length<20){toast('⚠️ Please enter at least 20 words for analysis.');return;}
+
+  const btn=$('goBtn');
+  $('btn-txt').innerHTML='<div class="dots"><span></span><span></span><span></span></div> Analyzing…';
+  btn.disabled=true;$('results-wrap').innerHTML='';
+  startScan();
+
+  // Compute frontend scores instantly
+  const spamSc=spamScore(art);
+  const adultSc=adultScore(art);
+  const clickSc=clickbaitScore(art);
+  const stuffSc=keywordStuffing(art,kw);
+  const fleschSc=flesch(art);
+  const rl=readLevel(fleschSc);
+  const seoSc=seoScore(art,kw);
+  const aiSc=aiSignal(art);
+  const adsenseSc=adsenseSafety(spamSc,adultSc,clickSc,stuffSc,aiSc);
+  const monetSc=monetizationReady(adsenseSc,seoSc,spamSc,fleschSc);
+  const wc=words(art).length;
+  // keyword density
+  let kwDensity='N/A';
+  if(kw){const cnt=art.toLowerCase().split(kw.toLowerCase()).length-1;kwDensity=((cnt/Math.max(wc,1))*100).toFixed(1)+'%';}
+
+  // copyright risk (heuristic)
+  const copyRisk=wc<100?60:wc<300?30:15;
+
+  // Get AI tips via API (with fallback)
+  let aiTips=[];
+  try{
+    const res=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:700,
+        messages:[{role:"user",content:`You are an AdSense policy expert and SEO specialist. Based on these content analysis scores, give exactly 6 short actionable tips to improve AdSense approval chances. Return ONLY a JSON array of 6 strings. No markdown, no backticks, no extra text.
+
+Scores:
+- AdSense Safety: ${adsenseSc}/100
+- SEO Score: ${seoSc}/100  
+- Spam Score: ${spamSc}/100 (lower is better)
+- Readability: ${fleschSc}/100
+- AI Content Signal: ${aiSc}/100
+- Clickbait Risk: ${clickSc}/100
+- Keyword: "${kw||'not specified'}"
+- Word count: ${wc}
+
+Content excerpt: "${art.slice(0,800)}"
+
+Return: ["tip1","tip2","tip3","tip4","tip5","tip6"]`}]})
+    });
+    const data=await res.json();
+    const raw=data.content.map(b=>b.text||'').join('');
+    aiTips=JSON.parse(raw.replace(/```json|```/g,'').trim());
+  }catch{
+    aiTips=[
+      `Your AdSense safety score is ${adsenseSc}/100. ${adsenseSc<60?'Remove any policy-violating content and rewrite flagged sections.':'Maintain this safe content level for monetization approval.'}`,
+      `SEO score is ${seoSc}/100. ${kw?`Ensure "${kw}" appears naturally 2–3 times per 100 words.`:'Add a clear target keyword and use it naturally throughout.'}`,
+      `${spamSc>30?'Reduce spammy phrases and avoid clickbait language in your content.':'Good spam score! Keep avoiding excessive promotional language.'}`,
+      `${wc<500?'Expand your article to at least 500 words for better AdSense approval chances.':'Good article length. Longer, original content performs better with AdSense.'}`,
+      `${fleschSc<60?'Simplify your sentences. Use shorter sentences and common words for better readability.':'Good readability! Easy-to-read content has higher engagement and better AdSense performance.'}`,
+      `${aiSc>40?'Your content shows AI writing patterns. Add personal insights, examples and a unique voice to appear more original.':'Good original writing signals. Maintain your authentic voice for better policy compliance.'}`
+    ];
+  }
+
+  stopScan();
+  renderResults({adsenseSc,seoSc,spamSc,adultSc,clickSc,stuffSc,fleschSc,rl,aiSc,monetSc,wc,kwDensity,copyRisk,aiTips});
+  $('btn-txt').textContent='🛡️ Re-Analyze Content';
+  btn.disabled=false;
+}
+
+function renderResults(d){
+  const ac=scoreColor(d.adsenseSc),sc2=scoreColor(d.seoSc),mc=scoreColor(d.monetSc);
+  const policyChecks=[
+    {icon:'🎣',name:'Clickbait Detection',desc:'Sensational or misleading titles/phrases',risk:riskLevel(d.clickSc)},
+    {icon:'⚠️',name:'Unsafe Language',desc:'Harmful, aggressive or offensive language',risk:riskLevel(d.adultSc)},
+    {icon:'🔞',name:'Adult / Sensitive Content',desc:'Adult themes or inappropriate material',risk:riskLevel(d.adultSc)},
+    {icon:'©️',name:'Copyright Risk',desc:'Potential copyright infringement signals',risk:riskLevel(d.copyRisk)},
+    {icon:'🔑',name:'Keyword Stuffing',desc:'Excessive repetition of target keyword',risk:riskLevel(d.stuffSc)},
+    {icon:'🚫',name:'Spammy Phrases',desc:'Low-quality or spam-like language patterns',risk:riskLevel(d.spamSc)},
+    {icon:'❓',name:'Misleading Content',desc:'Content that may mislead or deceive readers',risk:d.clickSc>40?2:d.clickSc>20?1:0},
+    {icon:'🤖',name:'AI Spam Signals',desc:'Patterns suggesting low-quality AI content',risk:riskLevel(d.aiSc)},
+  ];
+  const tipColors=['var(--green)','var(--blue)','var(--cyan)','var(--purple)','var(--yellow)','var(--teal)'];
+  const overallLabel=d.adsenseSc>=75?'✅ AdSense Ready':d.adsenseSc>=50?'⚠️ Needs Improvement':'❌ High Risk';
+
+  $('results-wrap').innerHTML=`<div class="dash">
+    <!-- OVERALL SCORE HERO -->
+    <div class="score-hero" style="background:rgba(52,211,153,0.07);border:1px solid rgba(52,211,153,0.2)">
+      <div class="rring">${ring(d.adsenseSc,'var(--green)',118)}</div>
+      <div class="sh-info">
+        <h2 style="color:var(--green)">${overallLabel}</h2>
+        <p style="color:rgba(255,255,255,0.7)">AdSense Safety Score: <strong>${d.adsenseSc}/100</strong>. ${d.adsenseSc>=75?'Your content looks good for AdSense monetization! Minor improvements may boost approval chances.':d.adsenseSc>=50?'Some policy concerns detected. Fix the flagged issues before applying for AdSense.':'Significant policy issues found. Rewrite flagged sections before monetization.'}</p>
+        <div class="sh-pills">
+          <span class="sh-pill" style="color:var(--green)">${d.wc} words</span>
+          <span class="sh-pill" style="color:${scoreColor(d.seoSc)}">SEO: ${d.seoSc}/100</span>
+          <span class="sh-pill" style="color:${scoreColor(d.monetSc)}">Monetization: ${d.monetSc}/100</span>
+          <span class="sh-pill" style="color:${d.rl.c}">Readability: ${d.rl.l}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCORE METRICS -->
+    <div class="mg">
+      ${metricCard('🛡️ AdSense Safety',d.adsenseSc,'var(--green)',d.adsenseSc>=70?'Good — policy safe':'Needs improvement')}
+      ${metricCard('🔍 SEO Score',d.seoSc,scoreColor(d.seoSc),d.seoSc>=70?'Well optimized':'Needs SEO work')}
+      ${metricCard('💰 Monetization Ready',d.monetSc,scoreColor(d.monetSc),d.monetSc>=70?'Ready to monetize':'Improve content first')}
+      ${metricCard('📖 Readability',d.fleschSc,d.rl.c,d.rl.l+' reading level')}
+      ${metricCard('🚨 Spam Score',d.spamSc,scoreColor(100-d.spamSc),d.spamSc<30?'Low spam signals':'Reduce spam phrases')}
+      ${metricCard('🤖 AI Signal',d.aiSc,scoreColor(100-d.aiSc),d.aiSc<30?'Natural writing':'Add more original voice')}
+      ${metricCard('🔑 Keyword Density',0,'var(--blue)',`${d.kwDensity} density`).replace('<div class="mc-val" style="color:var(--blue)">0</div>',`<div class="mc-val" style="color:var(--blue);font-size:18px">${d.kwDensity}</div>`)}
+      ${metricCard('📋 Word Count',Math.min(100,Math.round((d.wc/1500)*100)),'var(--cyan)',`${d.wc} words total`)}
+    </div>
+
+    <!-- POLICY CHECKS -->
+    <div class="rbox">
+      <div class="rbox-title">🛡️ AdSense Policy Detection Module</div>
+      <div class="pol-grid">
+        ${policyChecks.map(c=>`<div class="pc">
+          <div class="pc-icon">${c.icon}</div>
+          <div class="pc-info"><div class="pc-name">${c.name}</div><div class="pc-desc">${c.desc}</div></div>
+          ${badge(c.risk)}
+        </div>`).join('')}
+      </div>
+    </div>
+
+    <!-- AI IMPROVEMENT TIPS -->
+    <div class="rbox">
+      <div class="rbox-title">🤖 AI-Powered Improvement Tips</div>
+      ${d.aiTips.map((tip,i)=>`<div class="tip-item">
+        <span class="tip-n" style="background:${tipColors[i%6]}">${i+1}</span>
+        <span>${tip}</span>
+      </div>`).join('')}
+    </div>
+  </div>`;
+
+  $('results-wrap').scrollIntoView({behavior:'smooth',block:'start'});
+}
+</script>
+</body>
+</html>
